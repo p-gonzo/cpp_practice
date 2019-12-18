@@ -1,10 +1,25 @@
 #include <iostream>
 using namespace std;
 
+class Eggs
+{
+public:
+    Eggs()
+    {
+        cout << "Constructing base member" << endl;
+    }
+
+    ~Eggs()
+    {
+        cout << "Destructing base member" << endl;
+    }
+};
+
 class Fish
 {
 protected:
     bool isFreshWater; // accessable to only self, derived classes, and friends
+    Eggs eggs;
 public:
 
     Fish()
