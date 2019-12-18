@@ -42,7 +42,7 @@ public:
     }
 };
 
-class RaceCar: private Car2 // b/c Car2 is has protected inheritance from Motor, it can pass the inhereted members on
+class RaceCar: private Car2 // b/c Car2 has protected inheritance from Motor, it can pass the inhereted members on
 {
 public:
     void Move() {

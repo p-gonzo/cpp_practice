@@ -4,10 +4,11 @@ using namespace std;
 class MonsterDB
 {
 private:
+    int someVal {3};
     ~MonsterDB() {}; // private destructor prevents instances on the stack
 
 public:
-    static void DestroyInstance(MonsterDB *pInstance)
+    static void DestroyInstance(MonsterDB *&pInstance)
     {
         delete pInstance; // Member can invoke private destructor
         pInstance = nullptr;
@@ -15,7 +16,7 @@ public:
 
     void DoSomething()
     {
-        cout << "Hello world" << endl;
+        cout << "Hello number: " << someVal << endl;
     }
 };
 
@@ -29,6 +30,7 @@ int main()
     MonsterDB *myDB = new MonsterDB(); // on heap
     doSomethingWithDB(myDB);
     MonsterDB::DestroyInstance(myDB);
+    cout << myDB << endl;
     // Theory:  Memory has been dealocated, so it MAY be overwritten, but hasn't been yet.
     // But why does setting to NULL after delete not fix this behavior?
     doSomethingWithDB(myDB);// TODO - Why doesn't this fail?

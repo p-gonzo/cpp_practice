@@ -23,6 +23,7 @@ public:
         cout << "Invoking myString destructor" << endl;
         // TODO - why do I need the (unsigned int * ) syntax to be able to print the location?
         cout << "Clearing memory at location " << (unsigned int *)buffer << endl;
+        cout << "Clearing memory at location " << (int *)buffer << endl;
         if (buffer != NULL)
             delete[] buffer;
     }

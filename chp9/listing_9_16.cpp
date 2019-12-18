@@ -13,7 +13,9 @@ struct ComplexType
     {
         Int,
         Char
-    }Type;
+    };
+    
+    DataType Type;
 
     union Value // Todo, what is the perpose of the word `Value` here
     {
@@ -22,7 +24,9 @@ struct ComplexType
 
         Value() {}
         ~Value() {}
-    }value;
+    };
+    
+    Value value;
 
 };
 
