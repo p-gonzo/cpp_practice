@@ -35,6 +35,12 @@ public:
     }
 };
 
+class Trout: public Fish
+{
+protected:
+    int _stamina {1};
+};
+
 void MakeFishSwim(Fish &fish)
 {
     fish.Swim();
@@ -44,6 +50,9 @@ int main()
 {
     Tuna tuna;
     Carp carp;
+
+    // Trout trout;
+    // Object of abstract class type "Trout" is not allowed: -- pure virtual function "Fish::Swim" has no overrider
     MakeFishSwim(tuna);
     MakeFishSwim(carp);
     return 0;
