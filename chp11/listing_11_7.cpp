@@ -13,9 +13,9 @@ public:
     int age;
 };
 
-class Mammal: public Animal { };
-class Bird: public Animal { };
-class Reptile: public Animal { };
+class Mammal: public Animal { public: Mammal() { cout << "Mammal Constructed" << endl; } };
+class Bird: public Animal { public: Bird() { cout << "Bird Constructed" << endl; } };
+class Reptile: public Animal { public: Reptile() { cout << "Reptile Constructed" << endl; } };
 
 class Platypus: public Mammal, public Bird, public Reptile
 {

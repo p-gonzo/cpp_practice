@@ -42,28 +42,16 @@ void MakeFishSwim(Fish& inputFish)
 
 int main()
 {
-    Fish fishes[3] = {Fish(), Tuna(), Carp()};
+    Fish fishes[3] = {Fish(), Tuna(), Carp()}; // We have narrowed our class here!
 
-    Fish().Swim();
-    Tuna().Swim();
-    Carp().Swim();
-
-    cout << "---" << endl;
-
-    for (auto fish: fishes) // TODO - why doesn't this work?
+    for (auto fish: fishes) 
         MakeFishSwim(fish);
 
     cout << "---" << endl;
 
     for (int i = 0; i < sizeof(fishes) /sizeof(*fishes); ++i) {
-        fishes[i].Swim(); // TODO - why doesn't this work?
+        fishes[i].Swim();
     }
-
-    cout << "---" << endl;
-
-    fishes[0].Swim();
-    fishes[1].Swim();
-    fishes[2].Swim();
 
     cout << "---" << endl;
 
@@ -71,17 +59,22 @@ int main()
     Tuna tuna;
     Carp carp;
 
-
     Fish* fishPointers [3] = { &fish, &tuna, &carp };
-    fishPointers[0]->Swim();
-    fishPointers[1]->Swim();
-    fishPointers[2]->Swim();
+
+    for (auto fishPointer: fishPointers)
+        fishPointer->Swim();
 
     cout << "---" << endl;
-    
-    cout << sizeof(BasicFish) << endl; // smaller with no vptr attached
-    cout << sizeof(Fish) << endl;
 
+    for (int i = 0; i < sizeof(fishPointers) /sizeof(*fishPointers); ++i) {
+        fishPointers[i]->Swim();
+    }
+    
+    cout << "---" << endl;
+
+    cout << "sizeof(BasicFish) = " << sizeof(BasicFish) << endl; // smaller with no vptr attached
+    cout << "sizeof(Fish) = " << sizeof(Fish) << endl;
+    cout << "sizeof(Carp) = " << sizeof(Carp) << endl;
 
     return 0;
 }
