@@ -16,9 +16,9 @@ class Circle: public Shape
 {
 public:
   Circle(double _radius)
-   {
-     _area = pow(_radius * 3.14, 2);
-   }
+  {
+    _area = pow(_radius * 3.14, 2);
+  }
 
   void Print() override
   {
