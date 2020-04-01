@@ -6,6 +6,7 @@ class Date
 {
 private:
     int day, month, year;
+    std::string dateString;
 
 public:
     Date(int m, int d, int y)
@@ -41,7 +42,8 @@ public:
     {
         std::ostringstream formattedDate;
         formattedDate << month << "/" << day << "/" << year;
-        return formattedDate.str().c_str();
+        dateString = formattedDate.str();
+        return dateString.c_str();
 
     }
 
@@ -51,16 +53,12 @@ int main()
 {
     Date birthday (11, 19, 1988);
 
-    std::string birthdayString(birthday);
-    
-    std::cout << "Birthday String: " << birthdayString << std::endl;
-
     std::cout << "My birthday is on " << birthday << std::endl;
-
     birthday++;
     ++birthday;
-
     std::cout << "Two days after my birthday is " << birthday << std::endl;
+
+    std::cout << "We can also now convert Dates directly to strings: " << std::string(Date(1,1,1)) << std::endl;
 
     return 0;
 
