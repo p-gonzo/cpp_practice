@@ -1,4 +1,6 @@
 #include <iostream>
+#include <sstream>
+#include <string>
 
 class Date
 {
@@ -35,10 +37,12 @@ public:
         return copy;
     }
 
-    friend std::ostream& operator<< (std::ostream &os, Date d)
+    operator const char*() // conversion operator
     {
-        os << d.month << "/" << d.day << "/" << d.year;
-        return os;
+        std::ostringstream formattedDate;
+        formattedDate << month << "/" << day << "/" << year;
+        return formattedDate.str().c_str();
+
     }
 
 };
@@ -47,11 +51,18 @@ int main()
 {
     Date birthday (11, 19, 1988);
 
+    std::string birthdayString(birthday);
+    
+    std::cout << "Birthday String: " << birthdayString << std::endl;
+
     std::cout << "My birthday is on " << birthday << std::endl;
 
     birthday++;
     ++birthday;
 
     std::cout << "Two days after my birthday is " << birthday << std::endl;
+
     return 0;
+
+    
 }
