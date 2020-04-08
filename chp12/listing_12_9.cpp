@@ -56,7 +56,7 @@ public:
         }
     }
 
-    const char& operator[] (int i)
+    /*const*/ char& operator[] (int i)
     {
         if (i < length) return buffer[i];
     }
@@ -82,6 +82,10 @@ int main()
     for (int i = 0; i < otherString.length; ++i)
         std::cout << otherString[i];
     std::cout << std::endl;
+
+    otherString[0] = 'x';
+
+    std::cout << otherString << std::endl;
 
     return 0;
 }
