@@ -68,9 +68,9 @@ public:
 
     ~MyString()
     {
+        std::cout << "Deleting " << (buffer != NULL ? buffer : "NULL") << std::endl;
         if (buffer != NULL)
         {
-            std::cout << "Deleting " << buffer << std::endl;
             delete[] buffer;
         }
     }
@@ -109,14 +109,20 @@ MyString createString(const char* input)
 int main()
 {
     MyString a("Dog"); // constructor called on a
+    std::cout << "---" << std::endl;
     
     a = createString("Cat"); // RvalueRef
+    std::cout << "---" << std::endl;
+    
     a = MyString("Hamster"); // RvalueRef
+    std::cout << "---" << std::endl;
     
     MyString b = std::move(a); // Xvalue (similar to rValue, means expirering value)
-
+    std::cout << "---" << std::endl;
+    
     std::cout << b << std::endl;
     std::cout << a << std::endl;
-
+    std::cout << "---" << std::endl;
+    
     return 0;
 }
