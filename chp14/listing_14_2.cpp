@@ -3,7 +3,7 @@
 
 #define SQUARE(x) ((x) * (x))
 #define PI 3.1416
-#define AREA_CIRCLE(r) (PI* SQUARE(r) )
+#define AREA_CIRCLE(r) (PI* (SQUARE((r))) )
 #define MIN(a, b) (((a) < (b) ? (a) : b))
 #define MAX(a, b) (((a) > (b) ? (a) : b))
 
@@ -36,5 +36,8 @@ int main()
 
     std::cout << "A Struct thing: " << thing.one << " " << thing.two << std::endl;
     std::cout << "The sum of the struct is " << A_SUM(thing) << std::endl;
+
+    std::cout << MIN(MIN(3,4),5) << std::endl;
+    std::cout << MIN(MIN(5,4),3) << std::endl;
     return 0;
 }
