@@ -1,5 +1,6 @@
+#include <assert.h>
 #include <iostream>
-#include<string>
+#include <string>
 
 #define SQUARE(x) ((x) * (x))
 #define PI 3.1416
@@ -44,6 +45,8 @@ int main()
 
     std::cout << "Result of macro UNSAFE_PRODUCT: " << UNSAFE_PRODUCT(9 + 1, 1 + 9) << std::endl; // 9 + 1 * 1 + 9 = 9 + 1 + 9 = 19
     std::cout << "Result of macro SAFE_PRODUCT: " << SAFE_PRODUCT(9 + 1, 1 + 9) << std::endl; // (9 + 1) * (1 + 9) = 10 * 10 = 100
+
+    assert(num2 == num);
     
     return 0;
 }
