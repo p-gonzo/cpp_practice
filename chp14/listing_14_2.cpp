@@ -8,6 +8,8 @@
 #define MAX(a, b) (((a) > (b) ? (a) : b))
 
 #define A_SUM(a) ((a.one) + (a.two))
+#define UNSAFE_PRODUCT(x,y) (x * y)
+#define SAFE_PRODUCT(x,y) ((x) * (y))
 
 struct A
 {
@@ -39,5 +41,9 @@ int main()
 
     std::cout << MIN(MIN(3,4),5) << std::endl;
     std::cout << MIN(MIN(5,4),3) << std::endl;
+
+    std::cout << "Result of macro UNSAFE_PRODUCT: " << UNSAFE_PRODUCT(9 + 1, 1 + 9) << std::endl; // 9 + 1 * 1 + 9 = 9 + 1 + 9 = 19
+    std::cout << "Result of macro SAFE_PRODUCT: " << SAFE_PRODUCT(9 + 1, 1 + 9) << std::endl; // (9 + 1) * (1 + 9) = 10 * 10 = 100
+    
     return 0;
 }
