@@ -1,37 +1,47 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <functional>
+
+/* Helper Funcs*/
 
 template <typename T>
-void ForEach(std::vector<T> &items, void (*cb)(T &item))
+void ForEach(std::vector<T> &items, std::function<void(T &item)> forEachCb)
 {
     for (T item: items)
-        cb(item);
-}
-
-template <typename T, typename T2>
-std::vector<T2> Map(std::vector<T> &items, T2 (*cb)(T &item))
-{
-    std::vector<T2> mappedVec;
-    for (T item: items)
-        mappedVec.emplace_back(cb(item));
-    return mappedVec;
-}
-
-template<typename T, typename T2>
-T2 Reduce(std::vector<T> &items, T2 (*cb)(T &item, T2 &memo), const T2 &start)
-{
-
-    T2 memo = start;
-    for (T item: items)
-        memo = cb(item, memo);
-    return memo;
+        forEachCb(item);
 }
 
 template <typename T>
 void print(T &item)
 {
     std::cout << item << std::endl;
+}
+
+/* Filter, Map, Reduce */
+
+template <typename T>
+std::vector<T> Filter(std::vector<T> &items, std::function<bool(T &item)> filterCb)
+{
+    std::vector<T> filteredVec;
+    ForEach<T>(items, [&filteredVec, &filterCb](T &item) { if (filterCb(item)) filteredVec.emplace_back(item); });
+    return filteredVec;
+}
+
+template <typename T, typename T2>
+std::vector<T2> Map(std::vector<T> &items, std::function<T2(T &item)> mapCb)
+{
+    std::vector<T2> mappedVec;
+    ForEach<T>(items, [&mappedVec, &mapCb](T &item) { mappedVec.emplace_back(mapCb(item)); });
+    return mappedVec;
+}
+
+template<typename T, typename T2>
+T2 Reduce(std::vector<T> &items, std::function<T2(T &item, T2 &memo)> reduceCb, const T2 &start)
+{
+    T2 memo = start;
+    ForEach<T>(items, [&memo, &reduceCb](T &item) { memo = reduceCb(item, memo); });
+    return memo;
 }
 
 
@@ -41,10 +51,8 @@ int main()
     std::vector<int> nums { 1, 2, 3, 4, 5 };
     std::vector<char> chars { 'a', 'b', 'c', 'd', 'e'};
 
-    ForEach<int>(nums, print<int>);
-    
-    std::cout << std::endl;
-    ForEach<char>(chars, print<char>);
+    std::vector<int> evens = Filter<int>(nums, [](int &num) { return num % 2 == 0; });
+    ForEach<int>(evens, print<int>);
 
     std::cout << std::endl;
     auto mappedVec = Map<int, int>(nums, [](int &num) { return num * num; });
