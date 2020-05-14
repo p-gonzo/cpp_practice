@@ -73,11 +73,11 @@ int main()
     ForEach<std::string>(word, print<char>);
 
     std::cout << std::endl;
-    std::vector<int> evens = Filter<std::vector<int>>(nums, [](int &num) { return num % 2 == 0; });
+    auto evens = Filter<std::vector<int>>(nums, [](int &num) { return num % 2 == 0; });
     ForEach<std::vector<int>>(evens, print<int>);
 
     std::cout << std::endl;
-    std::string word2 = Filter<std::string>(word, [](char &chr) { return chr != 'H' && chr != 'o'; });
+    auto word2 = Filter<std::string>(word, [](char &chr) { return chr != 'H' && chr != 'o'; });
     ForEach<std::string>(word2, print<char>);
 
     std::cout << std::endl;
@@ -93,8 +93,12 @@ int main()
     std::cout << reducedInt << std::endl;
 
     std::cout << std::endl;
-    std::string reducedChars = Reduce<std::string, std::string>(word, [](char &item, std::string& memo) { return memo + item + " "; }, "");
-    std::cout << reducedChars << std::endl;
+    auto wordInts = Reduce<std::string, std::vector<int>>(word, [](char &item, std::vector<int>& memo)
+    {
+        memo.emplace_back(static_cast<int>(item));
+        return memo;
+    }, std::vector<int> { });
+    ForEach<std::vector<int>>(wordInts, print<int>);
 
     return 0;
 }
