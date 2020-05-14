@@ -54,20 +54,17 @@ std::string Map<std::string>(std::string &items, std::function<char(char &item)>
     return mappedString;
 }
 
-// template<typename T, typename T2>
-// T2 Reduce(std::vector<T> &items, std::function<T2(T &item, T2 &memo)> reduceCb, const T2 &start)
-// {
-//     T2 memo = start;
-//     ForEach<T>(items, [&memo, &reduceCb](T &item) { memo = reduceCb(item, memo); });
-//     return memo;
-// }
-
-
+template <typename IteratorType, typename MemoType>
+MemoType Reduce(IteratorType &items, std::function<MemoType(typename std::iterator_traits<typename IteratorType::iterator>::value_type &item, MemoType &memo)> reduceCb, const MemoType &start)
+{
+    MemoType memo = start;
+    ForEach<IteratorType>(items, [&memo, &reduceCb](auto &item) { memo = reduceCb(item, memo); });
+    return memo;
+}
 
 int main()
 {
     std::vector<int> nums { 1, 2, 3, 4, 5 };
-    std::vector<char> chars { 'a', 'b', 'c', 'd', 'e'};
     std::string word { "Hello" };
 
     ForEach<std::vector<int>>(nums, print<int>);
@@ -87,13 +84,17 @@ int main()
     auto mappedVec = Map<std::vector<int>>(nums, [](int &num) { return num * num; });
     ForEach<std::vector<int>>(mappedVec, print<int>);
 
-    // std::cout << std::endl;
-    // int reducedInt = Reduce<int, int>(nums, [](int &num1, int&num2) { return num1 + num2; }, 0);
-    // std::cout << reducedInt << std::endl;
+    std::cout << std::endl;
+    auto mappedWord = Map<std::string>(word, [](char &chr) { return static_cast<char>(chr + 1); });
+    ForEach<std::string>(mappedWord, print<char>);
 
-    // std::cout << std::endl;
-    // std::string reducedChars = Reduce<char, std::string>(chars, [](char &item, std::string& memo) { return memo + item + " "; }, "");
-    // std::cout << reducedChars << std::endl;
+    std::cout << std::endl;
+    int reducedInt = Reduce<std::vector<int>, int>(nums, [](int &num1, int&num2) { return num1 + num2; }, 0);
+    std::cout << reducedInt << std::endl;
+
+    std::cout << std::endl;
+    std::string reducedChars = Reduce<std::string, std::string>(word, [](char &item, std::string& memo) { return memo + item + " "; }, "");
+    std::cout << reducedChars << std::endl;
 
     return 0;
 }
