@@ -3,10 +3,13 @@
 #include <string>
 #include <functional>
 
+template <typename IteratorType>
+using ItemType = typename std::iterator_traits<typename IteratorType::iterator>::value_type;
+
 /* Helper Funcs*/
 
 template <typename IteratorType>
-void ForEach(IteratorType &items, std::function<void(typename std::iterator_traits<typename IteratorType::iterator>::value_type &item)> forEachCb)
+void ForEach(IteratorType &items, std::function<void(ItemType<IteratorType> &item)> forEachCb)
 {
     for (typename IteratorType::iterator ptr = items.begin(); ptr != items.end(); ++ptr)
         forEachCb(*ptr);
@@ -21,7 +24,7 @@ void print(T &item)
 /* Filter, Map, Reduce */
 
 template <typename IteratorType>
-IteratorType Filter(IteratorType &items, std::function<bool(typename std::iterator_traits<typename IteratorType::iterator>::value_type &item)> filterCb)
+IteratorType Filter(IteratorType &items, std::function<bool(ItemType<IteratorType> &item)> filterCb)
 {
     IteratorType filteredIterator;
     ForEach<IteratorType>(items, [&filteredIterator, &filterCb](auto &item) { if (filterCb(item)) filteredIterator.emplace_back(item); });
@@ -38,7 +41,7 @@ std::string Filter<std::string>(std::string &items, std::function<bool(char &ite
 }
 
 template <typename IteratorType>
-IteratorType Map(IteratorType &items, std::function<typename std::iterator_traits<typename IteratorType::iterator>::value_type(typename std::iterator_traits<typename IteratorType::iterator>::value_type &item)> mapCb)
+IteratorType Map(IteratorType &items, std::function<ItemType<IteratorType>(ItemType<IteratorType> &item)> mapCb)
 {
     IteratorType mappedIterator;
     ForEach<IteratorType>(items, [&mappedIterator, &mapCb](auto &item) { mappedIterator.emplace_back(mapCb(item)); });
@@ -55,7 +58,7 @@ std::string Map<std::string>(std::string &items, std::function<char(char &item)>
 }
 
 template <typename IteratorType, typename MemoType>
-MemoType Reduce(IteratorType &items, std::function<MemoType(typename std::iterator_traits<typename IteratorType::iterator>::value_type &item, MemoType &memo)> reduceCb, const MemoType &start)
+MemoType Reduce(IteratorType &items, std::function<MemoType(ItemType<IteratorType> &item, MemoType &memo)> reduceCb, const MemoType &start)
 {
     MemoType memo = start;
     ForEach<IteratorType>(items, [&memo, &reduceCb](auto &item) { memo = reduceCb(item, memo); });
