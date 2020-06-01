@@ -27,34 +27,16 @@ template <typename IteratorType>
 IteratorType Filter(IteratorType &items, std::function<bool(ItemType<IteratorType> &item)> filterCb)
 {
     IteratorType filteredIterator;
-    ForEach<IteratorType>(items, [&filteredIterator, &filterCb](auto &item) { if (filterCb(item)) filteredIterator.emplace_back(item); });
+    ForEach<IteratorType>(items, [&filteredIterator, &filterCb](auto &item) { if (filterCb(item)) filteredIterator.push_back(item); });
     return filteredIterator;
-}
-
-/* Filter Function template specialization for std::string*/
-template <>
-std::string Filter<std::string>(std::string &items, std::function<bool(char &item)> filterCb)
-{
-    std::string filteredString;
-    ForEach<std::string>(items, [&filteredString, &filterCb](char &item) { if (filterCb(item)) filteredString += item; });
-    return filteredString;
 }
 
 template <typename IteratorType>
 IteratorType Map(IteratorType &items, std::function<ItemType<IteratorType>(ItemType<IteratorType> &item)> mapCb)
 {
     IteratorType mappedIterator;
-    ForEach<IteratorType>(items, [&mappedIterator, &mapCb](auto &item) { mappedIterator.emplace_back(mapCb(item)); });
+    ForEach<IteratorType>(items, [&mappedIterator, &mapCb](auto &item) { mappedIterator.push_back(mapCb(item)); });
     return mappedIterator;
-}
-
-/* Map Function template specialization for std::string*/
-template <>
-std::string Map<std::string>(std::string &items, std::function<char(char &item)> mapCb)
-{
-    std::string mappedString;
-    ForEach<std::string>(items, [&mappedString, &mapCb](char &item) {  mappedString += mapCb(item); });
-    return mappedString;
 }
 
 template <typename IteratorType, typename MemoType>
@@ -98,7 +80,7 @@ int main()
     std::cout << std::endl;
     auto wordInts = Reduce<std::string, std::vector<int>>(word, [](char &item, std::vector<int>& memo)
     {
-        memo.emplace_back(static_cast<int>(item));
+        memo.push_back(static_cast<int>(item));
         return memo;
     }, std::vector<int> { });
     ForEach<std::vector<int>>(wordInts, print<int>);
