@@ -8,7 +8,9 @@ public:
     static std::string staticVal;
 };
 
-template<typename T> std::string TestStatic<T>::staticVal { "Hello World!" };
+// static member initialization with generic type
+template<typename T>
+std::string TestStatic<T>::staticVal { "Hello World!" };
 
 int main()
 {
