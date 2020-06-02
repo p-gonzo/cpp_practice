@@ -1,3 +1,5 @@
+// Variadic template example
+
 #include <iostream>
 #include <string>
 
