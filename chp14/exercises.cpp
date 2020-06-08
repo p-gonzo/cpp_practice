@@ -70,7 +70,7 @@ template <typename T1, typename T2>
 class MyClass
 {
 public:
-    MyClass(const int &a, const double &b): _a(a), _b(b) { }
+    MyClass(const T1 &a, const T2 &b): _a(a), _b(b) { }
     template <typename T>
     const T GetVal() // TODO - fails when we try to return a ptr, why?
     {
