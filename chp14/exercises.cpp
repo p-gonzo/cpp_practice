@@ -72,7 +72,7 @@ class MyClass
 public:
     MyClass(const T1 &a, const T2 &b): _a(a), _b(b) { }
     template <typename T>
-    const T GetVal() // TODO - fails when we try to return a ptr, why?
+    const T GetVal() // Fails when we try to return a ptr, b/c all paths must return same type, value is cast when not ptr
     {
         if (sizeof(T) == sizeof(_a))
         {
