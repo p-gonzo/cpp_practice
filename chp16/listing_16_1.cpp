@@ -12,10 +12,10 @@ int main()
     std::string strFromCpy (strFromContCharPtr);
     std::cout << strFromCpy << std::endl;
 
-    std::string strPartialCpy (constCStyleString, 5);
+    std::string strPartialCpy (constCStyleString, 5); // copies from start
     std::cout << strPartialCpy << std::endl;
 
-    std::string otherPartialCpy (strFromCpy, 5);
+    std::string otherPartialCpy (strFromCpy, 5); // coppies from end, weird.
     std::cout << otherPartialCpy << std::endl;
 
     std::string repeatedChars (10, 'a');
