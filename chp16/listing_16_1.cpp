@@ -21,5 +21,10 @@ int main()
     std::string repeatedChars (10, 'a');
     std::cout << repeatedChars << std::endl;
 
+    std::string movedFrom {"Hello World"};
+    std::string movedTo = std::move(movedFrom);
+    std::cout << "movedFrom contains: " << movedFrom << " and is " << movedFrom.length() << " chars long." << std::endl;
+    std::cout << "movedTo contains: " << movedTo << " and is " << movedTo.length() << " chars long." << std::endl;
+
     return 0;
 }
