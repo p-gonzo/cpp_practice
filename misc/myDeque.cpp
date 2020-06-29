@@ -54,6 +54,15 @@ public:
         return _map[targetBlockIndex][targetValIndex];
     }
 
+    ~MyDeque()
+    {
+        for (int i = 0; i < _mapSize; ++i)
+        {
+            delete[] _map[i];
+        }
+        delete[] _map;
+    }
+
 private:
     unsigned int _blockLength {8};
     unsigned int _mapSize {1};
