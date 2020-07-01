@@ -34,6 +34,7 @@ public:
     }
 
     void pushFront(T val)
+    // TODO - Implement resize
     {
         _size++;
         unsigned int targetBlockIndex = _head.block;
@@ -57,8 +58,11 @@ public:
         unsigned int targetValIndex = _tail.idx;
 
         // Resize
+        // TODO - Modify Trigger
         if (targetBlockIndex > _mapSize - 1)
         {
+            // TODO - Fix resize
+            std::cout << "Resizing" << std::endl;
             unsigned int newMapSize = _mapSize * 2;
             T** newMap = new T*[newMapSize];
             
@@ -105,15 +109,19 @@ public:
         delete[] _map;
     }
 
-private:
-    unsigned int _blockLength {8};
+// TODO - make private
     unsigned int _mapSize {3};
-    
-    unsigned int _size {0};
+    const unsigned int _blockLength {8};
     unsigned int _capacity {_blockLength * _mapSize};
+
+    // increase capacity by 2, after 80% of capacity is reached
+    const double _maxCapacity { 0.8 };
+    const int _resizeFactor { 2 };
+
+    unsigned int _size {0};
     
     T** _map;
-public:
+
     DequeLocation _head;
     DequeLocation _tail;
 
