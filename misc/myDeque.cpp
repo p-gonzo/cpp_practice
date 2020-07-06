@@ -45,8 +45,6 @@ public:
             targetBlockIndex--;
         }
 
-        // std::cout << targetBlockIndex << " " << targetValIndex << std::endl;
-
         if (targetBlockIndex < 0)
         {
             std::cout << "Resizing at size: " << _size << std::endl;
@@ -79,13 +77,12 @@ public:
         _head.block = targetBlockIndex;
         _head.idx = targetValIndex;
     }
+
     void pushBack(T val)
     {
         _size++;
         unsigned int targetBlockIndex = _tail.block;
         unsigned int targetValIndex = _tail.idx;
-
-        // std::cout << targetBlockIndex << " " << targetValIndex << std::endl;
 
         if (targetBlockIndex > _numberOfBlocks - 1)
         {
@@ -126,7 +123,6 @@ public:
         unsigned int targetValIndex = _head.idx + idx;
         targetBlockIndex = targetBlockIndex + floor(targetValIndex/_blockLength);
         targetValIndex = targetValIndex % _blockLength;
-        // std::cout << targetBlockIndex << " " << targetValIndex << std::endl;
         return _map[targetBlockIndex][targetValIndex];
     }
 
@@ -139,7 +135,7 @@ public:
         delete[] _map;
     }
 
-// TODO - make private
+private:
     unsigned int _numberOfBlocks {3};
     const unsigned int _blockLength {8};
     unsigned int _capacity {_blockLength * _numberOfBlocks};
@@ -158,29 +154,26 @@ public:
 int main()
 {
     MyDeque<int> ints;
-    for (int i = 1; i < 21; ++i)
+    for (int i = 1; i <= 20; ++i)
     {
         ints.pushBack(i * i);
     }
-    // std::cout << "head: " << ints._head.block << " " << ints._head.idx << " tail: " << ints._tail.block << " " << ints._tail.idx << std::endl;
-
-    for (int i = 1; i < 21; ++i)
+    for (int i = 1; i <= 20; ++i)
     {
         ints.pushFront(i * i);
     }
 
-    for (int i = 1; i < 21; ++i)
+    for (int i = 1; i <= 20; ++i)
     {
         ints.pushBack(i * i);
     }
 
-    for (int i = 1; i < 21; ++i)
+    for (int i = 1; i <= 20; ++i)
     {
         ints.pushFront(i * i);
     }
 
     std::cout << "Size: " << ints.Size() << " Capacity: " << ints.Capacity() << std::endl;
-    std::cout << "head: " << ints._head.block << " " << ints._head.idx << " tail: " << ints._tail.block << " " << ints._tail.idx << std::endl;
 
     for (int i = 0; i < ints.Size(); ++i)
     {
