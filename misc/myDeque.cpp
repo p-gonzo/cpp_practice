@@ -197,21 +197,21 @@ int main()
     MyDeque<int> ints;
     for (int i = 1; i <= 20; ++i)
     {
-        ints.pushBack(i * i);
+        ints.pushBack(i);
     }
     for (int i = 1; i <= 20; ++i)
     {
-        ints.pushFront(i * i);
-    }
-
-    for (int i = 1; i <= 20; ++i)
-    {
-        ints.pushBack(i * i);
+        ints.pushFront(i * -1);
     }
 
     for (int i = 1; i <= 20; ++i)
     {
-        ints.pushFront(i * i);
+        ints.pushBack(i * i);
+    }
+
+    for (int i = 1; i <= 20; ++i)
+    {
+        ints.pushFront(i * i * -1);
     }
 
     std::cout << "Size: " << ints.Size() << " Capacity: " << ints.Capacity() << std::endl;
@@ -233,7 +233,7 @@ int main()
 
     while (ints.Size() != 0)
     {
-        std::cout << ints.popBack() << std::endl;
+        std::cout << ints.popFront() << std::endl;
     }
 
     std::cout << ints.Size() << " " << ints.Capacity() << std::endl;
