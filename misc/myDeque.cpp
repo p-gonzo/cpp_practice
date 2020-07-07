@@ -16,12 +16,12 @@ public:
         _tail.set(1, 0);
     }
 
-    unsigned int Size() const
+    unsigned int size() const
     {
         return _size;
     }
 
-    unsigned int Capacity() const
+    unsigned int capacity() const
     {
         return _capacity;
     }
@@ -170,6 +170,7 @@ public:
 
 private:
 
+    // Private child class
     struct DequeLocation
     {
         void set(unsigned int b, unsigned int i) { block = b; idx = i; }
@@ -214,9 +215,9 @@ int main()
         ints.pushFront(i * i * -1);
     }
 
-    std::cout << "Size: " << ints.Size() << " Capacity: " << ints.Capacity() << std::endl;
+    std::cout << "Size: " << ints.size() << " Capacity: " << ints.capacity() << std::endl;
 
-    for (int i = 0; i < ints.Size(); ++i)
+    for (int i = 0; i < ints.size(); ++i)
     {
         std::cout << i << ": " << ints[i] << std::endl;
     }
@@ -224,17 +225,17 @@ int main()
     std::cout << ints.popBack() << std::endl;
     std::cout << ints.popFront() << std::endl;
 
-    std::cout << "Size: " << ints.Size() << " Capacity: " << ints.Capacity() << std::endl;
+    std::cout << "Size: " << ints.size() << " Capacity: " << ints.capacity() << std::endl;
 
-    for (int i = 0; i < ints.Size(); ++i)
+    for (int i = 0; i < ints.size(); ++i)
     {
         std::cout << i << ": " << ints[i] << std::endl;
     }
 
-    while (ints.Size() != 0)
+    while (ints.size() != 0)
     {
         std::cout << ints.popFront() << std::endl;
     }
 
-    std::cout << ints.Size() << " " << ints.Capacity() << std::endl;
+    std::cout << ints.size() << " " << ints.capacity() << std::endl;
 }
