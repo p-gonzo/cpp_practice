@@ -1,13 +1,6 @@
 #include <iostream>
 #include <cmath>
 
-struct DequeLocation
-{
-    void set(unsigned int b, unsigned int i) { block = b; idx = i; }
-    unsigned int block;
-    unsigned int idx;
-};
-
 template <typename T>
 class MyDeque
 {
@@ -35,7 +28,7 @@ public:
 
     void pushFront(T val)
     {
-        _size++;
+        ++_size;
         int targetBlockIndex = _head.block;
         unsigned int targetValIndex = _head.idx - 1;
 
@@ -80,7 +73,7 @@ public:
 
     void pushBack(T val)
     {
-        _size++;
+        ++_size;
         unsigned int targetBlockIndex = _tail.block;
         unsigned int targetValIndex = _tail.idx;
 
@@ -114,7 +107,47 @@ public:
             _tail.idx = 0;
             _tail.block++;
         }
+    }
 
+    T popBack()
+    {
+        --_size;
+        int targetBlockIndex = _tail.block;
+        unsigned int targetValIndex = _tail.idx - 1;
+
+        if (targetValIndex == -1)
+        {
+            targetValIndex = _blockLength - 1;
+            --targetBlockIndex;
+        }
+
+        T target { _map[targetBlockIndex][targetValIndex] };
+        
+        _tail.block = targetBlockIndex;
+        _tail.idx = targetValIndex;
+
+        return target;
+    }
+
+    T popFront()
+    {
+        --_size;
+
+        T target { _map[_head.block][_head.idx] };
+
+        int newHeadBlock = _head.block;
+        unsigned int newHeadVal = _head.idx + 1;
+
+        if (newHeadVal == _blockLength)
+        {
+            newHeadVal = 0;
+            ++newHeadBlock;
+        }
+        
+        _head.block = newHeadBlock;
+        _head.idx = newHeadVal;
+
+        return target;
     }
 
     T& operator[](unsigned int idx)
@@ -136,6 +169,14 @@ public:
     }
 
 private:
+
+    struct DequeLocation
+    {
+        void set(unsigned int b, unsigned int i) { block = b; idx = i; }
+        unsigned int block;
+        unsigned int idx;
+    };
+
     unsigned int _numberOfBlocks {3};
     const unsigned int _blockLength {8};
     unsigned int _capacity {_blockLength * _numberOfBlocks};
@@ -179,4 +220,21 @@ int main()
     {
         std::cout << i << ": " << ints[i] << std::endl;
     }
+
+    std::cout << ints.popBack() << std::endl;
+    std::cout << ints.popFront() << std::endl;
+
+    std::cout << "Size: " << ints.Size() << " Capacity: " << ints.Capacity() << std::endl;
+
+    for (int i = 0; i < ints.Size(); ++i)
+    {
+        std::cout << i << ": " << ints[i] << std::endl;
+    }
+
+    while (ints.Size() != 0)
+    {
+        std::cout << ints.popBack() << std::endl;
+    }
+
+    std::cout << ints.Size() << " " << ints.Capacity() << std::endl;
 }
