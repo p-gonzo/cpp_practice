@@ -3,62 +3,80 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <deque>
 
 
-struct Dimension
+template<typename T>
+void displayDequeVals(std::deque<T> &vals)
 {
-    Dimension(int h, int w): height(h), width(w) { }
-    int height;
-    int width;
-    std::string stringRepresentation;
-
-    operator const char*()
+    for (auto val: vals)
     {
-        std::ostringstream stream;
-        stream << "Height: " << height << " Width: " << width;
-        stringRepresentation = stream.str();
-        return stringRepresentation.c_str();
+        std::cout << val << std::endl;
     }
-};
-
-void addDimensionToArrayFromUserInput(std::vector<Dimension> &dims)
-{
-    int tempHeight;
-    int tempWidth;
-    std::cout << "Height: >> ";
-    std::cin >> tempHeight;
-    std::cout << "Width: >> ";
-    std::cin >> tempWidth;
-    dims.push_back(Dimension(tempHeight, tempWidth));
-}
-
-bool shouldContinue(std::string msg, char check)
-{
-    std::cout << msg;
-    char input;
-    std::cin >> input;
-    return input == check;
 }
 
 int main()
 {
-    std::vector<Dimension> dims;
-    bool addAnother {true};
-    while(addAnother)
-    {
-        addDimensionToArrayFromUserInput(dims);
-        addAnother = shouldContinue("Add another? >> ", 'y');
-    }
-
-    std::cout << dims.size() << std::endl;
-    for (auto dim : dims)
-    {
-        std::cout << dim << ", ";
-    }
-    std::cout << std::endl;
-
+    using namespace std::string_literals;
+    std::deque<std::string> strings { "Hello"s, "Containers are cool!"s, "C++ is evolving!"s};
+    displayDequeVals<std::string>(strings);
     return 0;
 }
+
+// struct Dimension
+// {
+//     Dimension(int h, int w): height(h), width(w) { }
+//     int height;
+//     int width;
+//     std::string stringRepresentation;
+
+//     operator const char*()
+//     {
+//         std::ostringstream stream;
+//         stream << "Height: " << height << " Width: " << width;
+//         stringRepresentation = stream.str();
+//         return stringRepresentation.c_str();
+//     }
+// };
+
+// void addDimensionToArrayFromUserInput(std::vector<Dimension> &dims)
+// {
+//     int tempHeight;
+//     int tempWidth;
+//     std::cout << "Height: >> ";
+//     std::cin >> tempHeight;
+//     std::cout << "Width: >> ";
+//     std::cin >> tempWidth;
+//     dims.push_back(Dimension(tempHeight, tempWidth));
+// }
+
+// bool shouldContinue(std::string msg, char check)
+// {
+//     std::cout << msg;
+//     char input;
+//     std::cin >> input;
+//     return input == check;
+// }
+
+// int main()
+// {
+//     std::vector<Dimension> dims;
+//     bool addAnother {true};
+//     while(addAnother)
+//     {
+//         addDimensionToArrayFromUserInput(dims);
+//         addAnother = shouldContinue("Add another? >> ", 'y');
+//     }
+
+//     std::cout << dims.size() << std::endl;
+//     for (auto dim : dims)
+//     {
+//         std::cout << dim << ", ";
+//     }
+//     std::cout << std::endl;
+
+//     return 0;
+// }
 
 // int main()
 // {
