@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <iostream>
 #include <vector>
 #include <string>
@@ -6,7 +7,7 @@ int main()
 {
     std::string input;
 
-    std::cout << "Type a phrase: > ";
+    std::cout << "Type a phrase: >> ";
     std::getline(std::cin, input);
 
 
@@ -21,15 +22,30 @@ int main()
     while (again)
     {
         int idx { 0 };
-        std::cout << "Type an index to get the char: > ";
+        std::cout << "Type an index to get the char: >> ";
         std::cin >> idx;
+        if (idx == -1)
+        {
+            again = false;
+            continue;
+        }
         std::cout << chars[idx] << std::endl;
+    }
 
-        char againChar;
-        std::cout << "c to continue, any other char to abort: > ";
-        std::cin >> againChar;
-        if (againChar != 'c') { again = false; }
-
+    again = true;
+    while (again)
+    {
+        std::cout << "Type a char to return the value's first instance: >> ";
+        char target;
+        std::cin >> target;
+        auto itr = std::find(chars.cbegin(), chars.cend(), target);
+        if (itr == chars.cend())
+        {
+            std::cout << "'" << target << "' not found, exiting." << std::endl;
+            again = false;
+            continue;
+        }
+        std::cout << (std::distance(chars.cbegin(), itr)) << std::endl;
     }
     return 0;
 }
