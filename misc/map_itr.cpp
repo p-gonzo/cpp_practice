@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <unordered_map>
+#include <vector>
 
 int main()
 {
@@ -32,6 +33,10 @@ int main()
     {
         std::cout << key << " = " << val << std::endl;
     }
+
+    char name[4] = {'p', 'h', 'i', 'l'};
+    auto [p, h, i, l] = name;
+    std::cout << "hello " << p << h << i << l <<std::endl;
 
     return 0;
 }
