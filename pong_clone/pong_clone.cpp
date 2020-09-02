@@ -1,8 +1,10 @@
-//Using SDL and standard IO
 #include <SDL2/SDL.h>
 #include <iostream>
 
-const int WINDOW_WIDTH { 1280} ;
+#include "Ball.h";
+#include "Vec2.h";
+
+const int WINDOW_WIDTH { 1280 };
 const int WINDOW_HEIGHT { 720 };
 
 void drawNet( SDL_Renderer* renderer )
@@ -34,6 +36,8 @@ int main( int argc, char* args[] )
 
     SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
 
+    Ball ball( Vec2( WINDOW_WIDTH / 2.0f - ball.radius, WINDOW_HEIGHT / 2.0f - ball.radius ) );
+
     bool running = true;
 
     while ( running )
@@ -49,6 +53,7 @@ int main( int argc, char* args[] )
         SDL_RenderClear( renderer );
 
         drawNet( renderer );
+        ball.Draw( renderer );
 
         SDL_RenderPresent( renderer ); // present the "backbuffer"
     }

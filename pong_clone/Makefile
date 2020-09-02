@@ -1,4 +1,4 @@
-OBJS = pong_clone.cpp
+OBJS = Vec2.cpp Ball.cpp pong_clone.cpp
 CC = g++
 # -w suppresses all warnings
 COMPILER_FLAGS = -w -g -std=c++17
