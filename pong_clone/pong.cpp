@@ -1,22 +1,12 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 
-#include "Ball.h";
-#include "Vec2.h";
+#include "assets/Ball.h";
+#include "assets/Net.h";
+#include "assets/Vec2.h";
 
 const int WINDOW_WIDTH { 1280 };
 const int WINDOW_HEIGHT { 720 };
-
-void drawNet( SDL_Renderer* renderer )
-{
-    for ( int y = 0; y < WINDOW_HEIGHT; ++y )
-    {
-        if ( y % 5 == 0 )
-        {
-            SDL_RenderDrawPoint( renderer, WINDOW_WIDTH / 2, y);
-        }
-    }
-}
 
 int main( int argc, char* args[] )
 {
@@ -45,14 +35,14 @@ int main( int argc, char* args[] )
         while ( SDL_PollEvent( &event ) )
         {
             if ( event.type == SDL_QUIT ) running = false;
-            else if ( event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE ) running = false;
+            if ( event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE ) running = false;
         }
 
         SDL_SetRenderDrawColor( renderer, 0x0, 0x0, 0xFF, 0xFF );
         SDL_RenderClear( renderer );
 
         SDL_SetRenderDrawColor( renderer, 0xFF, 0XFF, 0XFF, 0XFF );
-        drawNet( renderer );
+        Net::Draw( renderer, WINDOW_HEIGHT, WINDOW_WIDTH );
         // ball.position += Vec2(1, 0);
         ball.Draw( renderer );
 

@@ -4,7 +4,6 @@
 
 #include "Vec2.h"
 
-
 class Ball
 {
 public:

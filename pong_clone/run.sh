@@ -1,1 +1,1 @@
-make all && ./pong_clone && rm pong_clone
+make all && ./pong && rm pong
