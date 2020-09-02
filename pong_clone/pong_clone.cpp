@@ -9,7 +9,6 @@ const int WINDOW_HEIGHT { 720 };
 
 void drawNet( SDL_Renderer* renderer )
 {
-    SDL_SetRenderDrawColor( renderer, 0xFF, 0XFF, 0XFF, 0XFF );
     for ( int y = 0; y < WINDOW_HEIGHT; ++y )
     {
         if ( y % 5 == 0 )
@@ -49,10 +48,12 @@ int main( int argc, char* args[] )
             else if ( event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE ) running = false;
         }
 
-        SDL_SetRenderDrawColor( renderer, 0x0, 0x0, 0x0, 0xFF );
+        SDL_SetRenderDrawColor( renderer, 0x0, 0x0, 0xFF, 0xFF );
         SDL_RenderClear( renderer );
 
+        SDL_SetRenderDrawColor( renderer, 0xFF, 0XFF, 0XFF, 0XFF );
         drawNet( renderer );
+        // ball.position += Vec2(1, 0);
         ball.Draw( renderer );
 
         SDL_RenderPresent( renderer ); // present the "backbuffer"
