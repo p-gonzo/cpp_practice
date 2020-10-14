@@ -67,6 +67,10 @@ int main()
 
     delete clone;
 
+    {
+        UniquePointer<Human>(new Human(29, "Bill"));
+    }
+
     auto womanPtr = UniquePointer<Human>(new Human(29, "Alex"));
     womanPtr->Greet();
     return 0;
