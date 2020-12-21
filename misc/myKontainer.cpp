@@ -9,6 +9,7 @@ public:
     {
         _data = new T[_capacity];
     }
+
     MyKontainer(std::initializer_list<T> init)
     {
         _size = init.size();
@@ -21,16 +22,20 @@ public:
             ++i;
         }
     }
+
     ~MyKontainer()
     {
-        delete _data;
+        delete[] _data;
     }
+
     size_t size() { return _size;}
     size_t capacity() { return _capacity; }
+
     T operator[](const int i)
     {
         return _data[i];
     }
+
     void push(const T val)
     {
         _data[_size++] = val;
