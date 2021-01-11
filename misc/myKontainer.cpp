@@ -28,18 +28,29 @@ public:
         delete[] _data;
     }
 
-    size_t size() { return _size;}
-    size_t capacity() { return _capacity; }
+    size_t size() const { return _size;}
+    size_t capacity() const { return _capacity; }
 
-    T operator[](const int i)
+    const T& operator[](const size_t i) const
     {
         return _data[i];
     }
 
-    void push(const T val)
+    T& operator[](const size_t i)
     {
+        return _data[i];
+    }
+
+    void push(const T &val)
+    {
+        if (_size == _capacity) { ReAlloc(_capacity * 2); }
         _data[_size++] = val;
-        if (_size == _capacity) { grow(); }
+    }
+
+    void push(T &&val)
+    {
+        if (_size == _capacity) { ReAlloc(_capacity * 2); }
+        _data[_size++] = std::move(val);
     }
 
     template<typename... Args>
@@ -53,36 +64,99 @@ public:
 
 private:
     T* _data;
-    size_t _size {10};
+    size_t _size {1};
     size_t _capacity {_size * 2};
 
-    void grow()
+    void ReAlloc(const size_t newCapacity)
     {
-        _capacity *= 2;
-        T* newData = new T[_capacity];
+        T* newBlock = new T[newCapacity];
         for (size_t i = 0; i < _size; ++i)
         {
-            newData[i] = _data[i];
+            newBlock[i] = _data[i];
         }
         delete[] _data;
-        _data = newData;
+        _data = newBlock;
+        _capacity = newCapacity;
+    }
+};
+
+struct Vector3
+{
+    float x = 0.0f, y = 0.0f, z = 0.0f;
+    Vector3() { std::cout << "ctor 1" << std::endl; }
+    Vector3(const float scalar): x(scalar), y(scalar), z(scalar)
+    {
+        std::cout << "ctor 2" << std::endl;
+    }
+    Vector3(const float x, const float y, const float z): x(x), y(y), z(z)
+    {
+        std::cout << "ctor 3" << std::endl;
     }
 
-    void shrink() {/* TODO - implement me*/}
+    Vector3(const Vector3 &other): x(other.x), y(other.y), z(other.z)
+    {
+        std::cout << "Copy" << std::endl;
+    }
+    Vector3(Vector3 &&other): x(other.x), y(other.y), z(other.z)
+    {
+        std::cout << "Move" << std::endl;
+    }
+    ~Vector3()
+    {
+        std::cout << "Destroy" << std::endl;
+    }
 
+    Vector3& operator=(const Vector3 &other)
+    {
+        std::cout << "Copy" << std::endl;
+        x = other.x;
+        y = other.y;
+        z = other.z;
+        return *this;
+    }
+
+    Vector3& operator=(Vector3 &&other)
+    {
+        std::cout << "Copy" << std::endl;
+        x = other.x;
+        y = other.y;
+        z = other.z;
+        return *this;
+    }
 };
+
+template <typename T>
+void printKontainer(const MyKontainer<T> &k)
+{
+    for (size_t i = 0; i < k.size(); ++i)
+    {
+        std::cout << k[i] << std::endl;
+        std::cout << "---" << std::endl;
+    }
+}
+
+template <>
+void printKontainer(const MyKontainer<Vector3> &k)
+{
+    for (size_t i = 0; i < k.size(); ++i)
+    {
+        std::cout << k[i].x << " " << k[i].y << " " << k[i].z << std::endl;
+        std::cout << "---" << std::endl;
+    }
+}
+
 
 int main()
 {
-    MyKontainer<int> k {1,2,3,4,5};
-    k.push(6);
-    k.push(7);
-    k.push(8,9,10,11);
-    for (int i = 0; i < k.size(); ++i)
-    {
-        std::cout << k[i] << std::endl;
-    }
-    std::cout << "the capacity is: " << k.capacity() << std::endl;
+    // MyKontainer<Vector3> k {Vector3(1), Vector3(2, 3, 4)};
+    // MyKontainer<Vector3> k {Vector3()};
+    MyKontainer<Vector3> k;
+    // Vector3();
+    k.push(Vector3());
+    // k.push(Vector3(9, 9, 9));
+    // k.push(Vector3(), Vector3());
+    // printKontainer(k);
+    // std::cout << "the capacity is: " << k.capacity() << std::endl;
     return 0;
 }
 
