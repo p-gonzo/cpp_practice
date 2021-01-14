@@ -20,7 +20,7 @@ int main()
     fw.sort();
     DisplayContents(fw);
 
-    std::forward_list<bool> isEven(fw., false);
+    std::forward_list<bool> isEven(4, false); // forward_list does not implement a size method
     std::transform(fw.begin(), fw.end(), isEven.begin(), [](const int &val) { return val % 2 == 0;});
     DisplayContents(isEven);
     return 0;
