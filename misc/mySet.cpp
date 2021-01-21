@@ -4,6 +4,12 @@ template <typename T>
 class mySet
 {
 public:
+    ~mySet()
+    {
+        if (val != nullptr) delete val;
+        if (left != nullptr) delete left;
+        if (right != nullptr) delete right;
+    }
     void insert(const T &val)
     {
         insert(*this, val);
