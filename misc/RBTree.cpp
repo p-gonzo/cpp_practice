@@ -21,7 +21,7 @@ private:
         if (node->val == nullptr || *(node->val) == val)
         {
             node->val = new T(val);
-            reballance(node);
+            recolor(node);
             return;
         }
         if (val < *(node->val))
@@ -36,13 +36,36 @@ private:
         }
     }
 
-    void reballance(RBTree *node)
+    void recolor(RBTree *node)
     {
         // root
         if (node->left == nullptr && node->right == nullptr)
         {
             node->color = 'b';
+            return;
         }
+        RBTree *uncle = Uncle(node);
+        if (uncle == nullptr || uncle->color == 'r')
+        {
+            // TODO - recolor parent, gp, and uncle.
+        }
+    }
+
+    // TODO - this doesn't distinguish between NULL uncle and no uncle
+    // Will that matter?
+    RBTree* Uncle(RBTree *node)
+    {
+        if (node->parent != nullptr) // parent
+        {
+            if (node->parent->parent != nullptr) // grandparent
+            {
+                if (node->parent->parent->right == node->parent)
+                {
+                    return node->parent->parent->left;
+                }
+            }
+        }
+        return nullptr;
     }
 
     T *val = nullptr;
