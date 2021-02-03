@@ -1,6 +1,7 @@
 #include <iostream>
 
-void printBits(unsigned char &x)
+template <typename T>
+void printBits(T &x)
 {
     for (size_t i = 0; i < sizeof(x) * 8; ++i)
     {
@@ -10,7 +11,8 @@ void printBits(unsigned char &x)
     std::cout << std::endl;
 }
 
-void setBits(unsigned char &x, unsigned char y)
+template <typename T>
+void setBits(T &x, T y)
 {
     for (size_t i = 0; i < sizeof(x) * 8; ++i)
     {
@@ -22,6 +24,6 @@ void setBits(unsigned char &x, unsigned char y)
 int main()
 {
     unsigned char x = 0;
-    setBits(x, 255);
+    setBits<unsigned char>(x, 2);
     printBits(x);
 }
