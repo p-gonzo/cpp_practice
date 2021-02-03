@@ -24,6 +24,6 @@ void setBits(T &x, T y)
 int main()
 {
     unsigned char x = 0;
-    setBits<unsigned char>(x, 2);
+    setBits<unsigned char>(x, 0xaa);
     printBits(x);
 }
