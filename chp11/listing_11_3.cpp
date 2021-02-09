@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 using namespace std;
 
 class Fish
@@ -9,7 +10,7 @@ public:
         cout << "Constructed Fish" << endl;
     }
 
-    virtual ~Fish()
+    virtual ~Fish() /* Without making the descructor virtual, we have a memory leak*/
     {
         cout << "Destructed Fish" << endl;
     }
@@ -22,27 +23,17 @@ public:
     {
         cout << "Constructed Tuna" << endl;
     }
+    std::string val {"This is a value that is only held by a Tuna Fish"};
 
-    ~Tuna() override
+    ~Tuna()
     {
         cout << "Destructed Tuna" << endl;
     }
 };
 
-void DealocateFishMemory(Fish *pFish)
-{
-    delete pFish;
-}
-
 int main()
 {
-    cout << "Tuna on the heap:" << endl;
-    Tuna* pTuna = new Tuna;
-    DealocateFishMemory(pTuna);
-
-    cout << "---" << endl;
-    cout << "Tuna on the stack:" << endl;
-    Tuna tuna;
-
+    Fish* pTuna = new Tuna;
+    delete pTuna;
     return 0;
 }
