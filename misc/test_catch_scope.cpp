@@ -1,9 +1,7 @@
 #define CATCH_CONFIG_MAIN
-
 #include "../utils/catch.hpp"
-#include <iostream>
 
-int x = 10;
+int x = 10; // defined outside of Catch's 
 
 TEST_CASE("Case")
 {
@@ -22,7 +20,7 @@ TEST_CASE("Case")
     {
         THEN("Their values should be reverted")
         {
-            // REQUIRE(x == 10);
+            REQUIRE(x == 10); // This fails b/c 'x' is defined outside of catch's scope
             REQUIRE(y == 10);
         }
     }
